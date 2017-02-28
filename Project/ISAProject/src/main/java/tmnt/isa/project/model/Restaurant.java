@@ -36,8 +36,8 @@ public class Restaurant {
 	@OneToMany(mappedBy="restaurant")
 	private Collection<Staff> staff = new ArrayList<Staff>();
 	
-	@OneToMany(mappedBy="restaurant")
-	private Collection<RestaurantManager> restaurantManagers = new ArrayList<RestaurantManager>();
+	//@OneToMany(mappedBy="restaurant", targetEntity=RestaurantManager.class)
+	//private Collection<RestaurantManager> restaurantManagers = new ArrayList<RestaurantManager>();
 	
 	@OneToMany(mappedBy="restaurant")
 	private Collection<Evaluation> evaluations = new ArrayList<Evaluation>();
@@ -52,7 +52,7 @@ public class Restaurant {
 		this.name = name;
 		this.typeDescription = typeDescription;
 		this.staff = new ArrayList<Staff>();
-		this.restaurantManagers = new ArrayList<RestaurantManager>();
+		//this.restaurantManagers = new ArrayList<RestaurantManager>();
 		this.evaluations = new ArrayList<Evaluation>();
 		this.dishMenu = new ArrayList<Dish>();
 		this.drinkMenu = new ArrayList<Drink>();

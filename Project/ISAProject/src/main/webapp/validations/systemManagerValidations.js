@@ -27,6 +27,7 @@ $(document).ready(function() {
 				$("#txtEmail").text(sysmanager.email);
 				$("#txtUsername").text(sysmanager.username);
 				$("#txtPassword").text(sysmanager.password);
+				$("#boss").text(sysmanager.boss);
 				if(sysmanager.boss) {
 					$("#bossNavbar").append(Mustache.render(bossTemplate, sysmanager));
 				}
@@ -199,7 +200,8 @@ $(document).ready(function() {
 			password: password,
 			firstName: firstName,
 			lastName: lastName,
-			email: email
+			email: email,
+			boss: $("#boss").text()
 		};
 		
 		$.ajax({
@@ -232,9 +234,8 @@ $(document).ready(function() {
 		var email = $("#email").val();
 		var password = $("#password").val();
 		var rpassword = $("#rpassword").val();
-		//var restaurant = $("#restaurant1").val();
+		var restaurant = $("#restaurant1").val();
 		var optionRestaurant = $('option:selected').attr('val');
-		//alert($('option:selected').attr('val'));
 		
 		if(firstName === "" && lastName === "" && username === "" && email === "" && password === "" && rpassword === "") {
 			$("#fnerror").text("First Name can't be empty!");
@@ -249,6 +250,7 @@ $(document).ready(function() {
 			$("#eaerror").show();
 			$("#pwerror").show();
 			$("#rpwerror").show();
+			$("#rterror").hide();
 			return false;
 		} else if(firstName === "") {
 			$("#fnerror").text("First Name can't be empty!");
@@ -258,6 +260,7 @@ $(document).ready(function() {
 			$("#eaerror").hide();
 			$("#pwerror").hide();
 			$("#rpwerror").hide();
+			$("#rterror").hide();
 			return false;
 		} else if(lastName === "") {
 			$("#lnerror").text("Last Name can't be empty!");
@@ -267,6 +270,7 @@ $(document).ready(function() {
 			$("#eaerror").hide();
 			$("#pwerror").hide();
 			$("#rpwerror").hide();
+			$("#rterror").hide();
 			return false;
 		} else if(username === "") {
 			$("#unerror").text("Username can't be empty!");
@@ -276,6 +280,7 @@ $(document).ready(function() {
 			$("#eaerror").hide();
 			$("#pwerror").hide();
 			$("#rpwerror").hide();
+			$("#rterror").hide();
 			return false;
 		} else if(username != "" && username.match(/^[a-z0-9_-]{3,16}$/i) == null) {
 			$("#unerror").text("Username need's to be created from 3 or more characters!");
@@ -285,6 +290,7 @@ $(document).ready(function() {
 			$("#eaerror").hide();
 			$("#pwerror").hide();
 			$("#rpwerror").hide();
+			$("#rterror").hide();
 			return false;
 		} else if(email === "") {
 			$("#eaerror").text("Email can't be empty!");
@@ -294,6 +300,7 @@ $(document).ready(function() {
 			$("#eaerror").show();
 			$("#pwerror").hide();
 			$("#rpwerror").hide();
+			$("#rterror").hide();
 			return false;
 		} else if(email != "" && email.match(/^[A-Z0-9._%+-]+@(?:[A-Z0-9-]+\.)+[A-Z]{2,4}$/i) == null) {
 			$("#eaerror").text("Email example - example@gmail.com");
@@ -303,6 +310,7 @@ $(document).ready(function() {
 			$("#eaerror").show();
 			$("#pwerror").hide();
 			$("#rpwerror").hide();
+			$("#rterror").hide();
 			return false;
 		} else if(password === "") {
 			$("#pwerror").text("Password can't be empty!");
@@ -312,6 +320,7 @@ $(document).ready(function() {
 			$("#eaerror").hide();
 			$("#pwerror").show();
 			$("#rpwerror").hide();
+			$("#rterror").hide();
 			return false;
 		} else if(password != "" && password.match(/^[a-z0-9_-]{8,18}$/) == null) {
 			$("#pwerror").text("Password need's to have at least 8 characters!");
@@ -321,6 +330,7 @@ $(document).ready(function() {
 			$("#eaerror").hide();
 			$("#pwerror").show();
 			$("#rpwerror").hide();
+			$("#rterror").hide();
 			return false;
 		} else if(rpassword === "") {
 			$("#pwerror").text("Confirm Password can't be empty!");
@@ -330,6 +340,7 @@ $(document).ready(function() {
 			$("#eaerror").hide();
 			$("#pwerror").hide();
 			$("#rpwerror").show();
+			$("#rterror").hide();
 			return false;
 		} else if(rpassword != "" && rpassword.match(/^[a-z0-9_-]{8,18}$/) == null) {
 			$("#rpwerror").text("Password need's to have at least 8 characters!");
@@ -339,6 +350,7 @@ $(document).ready(function() {
 			$("#eaerror").hide();
 			$("#pwerror").hide();
 			$("#rpwerror").show();
+			$("#rterror").hide();
 			return false;
 		} else if(password !== rpassword) {
 			$("#rpwerror").text("These to password's are not equale!");
@@ -348,6 +360,17 @@ $(document).ready(function() {
 			$("#eaerror").hide();
 			$("#pwerror").hide();
 			$("#rpwerror").show();
+			$("#rterror").hide();
+			return false;
+		} else if(restaurant === "") {
+			$("#rterror").text("Restaurant field can't be empty!");
+			$("#fnerror").hide();
+			$("#lnerror").hide();
+			$("#unerror").hide();
+			$("#eaerror").hide();
+			$("#pwerror").hide();
+			$("#rpwerror").hide();
+			$("#rterror").show();
 			return false;
 		}
 		
@@ -364,7 +387,7 @@ $(document).ready(function() {
 			firstName: firstName,
 			lastName: lastName,
 			email: email,
-			restaurant: $('option:selected').attr('val')
+			restaurantId: optionRestaurant
 		};
 		
 		$.ajax({
@@ -385,38 +408,6 @@ $(document).ready(function() {
 				$("#divError1").show("fade");
 			}
 		});
-		
-		/*$.ajax({
-			headers: { 
-		        'Accept': 'application/json',
-		        'Content-Type': 'application/json',
-		        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth')
-		    },
-			type: "GET",
-			url: "/api/restaurants/get/" + optionRestaurant,
-			dataType: "json",
-			success: function(restaurant) {
-				resmanager.restaurant = restaurant;
-				$.ajax({
-					headers: { 
-				        'Accept': 'application/json',
-				        'Content-Type': 'application/json',
-				        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth')
-				    },
-					type: "POST",
-					url: "/api/resmanagers",
-					data: JSON.stringify(resmanager),
-					dataType: "json",
-					success: function(newResmanager) {
-						$("#successModal").modal("show");
-					},
-					error: function(jqXHR) {
-						$("#divErrorText1").text("User with this username or email already exists!");
-						$("#divError1").show("fade");
-					}
-				});
-			}
-		});*/
 	});
 	
 	//List of Restaurant Managers

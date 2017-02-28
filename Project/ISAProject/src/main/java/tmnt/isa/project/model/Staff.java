@@ -47,7 +47,7 @@ public class Staff extends UserDetails {
 	
 	@Getter @Setter
 	@OneToMany(mappedBy="staff")
-	private Collection<Evaluation> evaluations; 
+	private Collection<Evaluation> evaluations = new ArrayList<Evaluation>(); 
 	
 	public Staff() {}
 	

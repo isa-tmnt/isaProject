@@ -236,7 +236,8 @@ $(document).ready(function() {
 					t.row.add( [
 			            restaurant.id,
 			            restaurant.name,
-			            restaurant.typeDescription
+			            restaurant.typeDescription,
+			            "<td><button data-id=\"" + restaurant.id + "\" type=\"button\" class=\"reserve btn btn-primary btn-sm\" data-toggle=\"tooltip\" data-placement=\"right\" title=\"Reservation\">Reservation</button></td>"
 			        ] ).draw( false );
 				});
 			}
