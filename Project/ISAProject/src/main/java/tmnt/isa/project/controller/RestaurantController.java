@@ -35,10 +35,10 @@ public class RestaurantController {
 		return restaurants;
 	}
 	
-	/*@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
 	public Restaurant getRestaurant(@PathVariable("id") Long id) {
 		return restaurantServices.getRestaurant(id);
-	}*/
+	}
 	
 	@RequestMapping(value = "/{name}", method = RequestMethod.GET)
 	public Restaurant getRestaurantByName(@PathVariable("name") String name) {

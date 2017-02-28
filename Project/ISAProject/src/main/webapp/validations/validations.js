@@ -216,9 +216,10 @@ $(function() {
 			password: password,
 			firstName: firstName,
 			lastName: lastName,
-			email: email
+			email: email,
+			boss: true
 		};
-		
+		//sysmanagers
 		$.ajax({
 			headers: { 
 		        'Accept': 'application/json',

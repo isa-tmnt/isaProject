@@ -8,6 +8,7 @@ $(document).ready(function() {
 		var password = userData[1];
 		
 		var span = "<span class=\"glyphicon glyphicon-user\"></span>";
+		var bossTemplate = $("#boss-template").html();
 		
 		$.ajax({
 			headers: { 
@@ -26,6 +27,9 @@ $(document).ready(function() {
 				$("#txtEmail").text(sysmanager.email);
 				$("#txtUsername").text(sysmanager.username);
 				$("#txtPassword").text(sysmanager.password);
+				if(sysmanager.boss) {
+					$("#bossNavbar").append(Mustache.render(bossTemplate, sysmanager));
+				}
 			}, error: function(jqXHR) {
 				
 			}
@@ -220,6 +224,7 @@ $(document).ready(function() {
 	});
 	
 	//Add Restaurant Manager
+	//TODO 2: Restaurant Manager
 	$("#register").on("click", function() {
 		var firstName = $("#firstname").val();
 		var lastName = $("#lastname").val();
@@ -227,6 +232,9 @@ $(document).ready(function() {
 		var email = $("#email").val();
 		var password = $("#password").val();
 		var rpassword = $("#rpassword").val();
+		//var restaurant = $("#restaurant1").val();
+		var optionRestaurant = $('option:selected').attr('val');
+		//alert($('option:selected').attr('val'));
 		
 		if(firstName === "" && lastName === "" && username === "" && email === "" && password === "" && rpassword === "") {
 			$("#fnerror").text("First Name can't be empty!");
@@ -355,13 +363,15 @@ $(document).ready(function() {
 			password: password,
 			firstName: firstName,
 			lastName: lastName,
-			email: email
+			email: email,
+			restaurant: $('option:selected').attr('val')
 		};
 		
 		$.ajax({
 			headers: { 
 		        'Accept': 'application/json',
-		        'Content-Type': 'application/json' 
+		        'Content-Type': 'application/json',
+		        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth')
 		    },
 			type: "POST",
 			url: "/api/resmanagers",
@@ -375,6 +385,38 @@ $(document).ready(function() {
 				$("#divError1").show("fade");
 			}
 		});
+		
+		/*$.ajax({
+			headers: { 
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json',
+		        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth')
+		    },
+			type: "GET",
+			url: "/api/restaurants/get/" + optionRestaurant,
+			dataType: "json",
+			success: function(restaurant) {
+				resmanager.restaurant = restaurant;
+				$.ajax({
+					headers: { 
+				        'Accept': 'application/json',
+				        'Content-Type': 'application/json',
+				        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth')
+				    },
+					type: "POST",
+					url: "/api/resmanagers",
+					data: JSON.stringify(resmanager),
+					dataType: "json",
+					success: function(newResmanager) {
+						$("#successModal").modal("show");
+					},
+					error: function(jqXHR) {
+						$("#divErrorText1").text("User with this username or email already exists!");
+						$("#divError1").show("fade");
+					}
+				});
+			}
+		});*/
 	});
 	
 	//List of Restaurant Managers
@@ -403,17 +445,17 @@ $(document).ready(function() {
 		$("#divError1").hide("fade");
 	});
 	
-	$("#closeModal").on("click", function() {
+	$("#closeModal2").on("click", function() {
 		window.location.href = "systemManagerPage.html";
 	});
 	
-	$("#closeModal1").on("click", function() {
+	$("#closeModal3").on("click", function() {
 		window.location.href = "systemManagerPage.html";
 	});
 	
 	//Add Restaurant
 	$("#addrest").on("click", function() {
-		alert("nesto si pogresno napisao");
+		//alert("nesto si pogresno napisao");
 		var name = $("#name").val();
 		var type = $("#type").val();
 		
@@ -458,6 +500,7 @@ $(document).ready(function() {
 	});
 	
 	//List of Restaurants
+	//TODO 1: Restaurant
 	$("#menu4").ready(function() {
 		var $table4 = $("#table4");
 		var restaurantTemplate = $("#restaurant-template").html();
@@ -474,6 +517,7 @@ $(document).ready(function() {
 			success: function(restaurants) {
 				$.each(restaurants, function(i, restaurant) {
 					$table4.append(Mustache.render(restaurantTemplate, restaurant));
+					$("#restaurant1").append("<option val=\"" + restaurant.id + "\">" + restaurant.name + "</option>");
 				});
 			}
 		});
