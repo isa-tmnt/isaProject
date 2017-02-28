@@ -3,9 +3,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="library/jquery-3.1.0.min.js"></script>
+
 <link rel="stylesheet" type="text/css" href="library/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="css/guest_styles.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+<script src="library/jquery-3.1.0.min.js"></script>
 <script src="library/js/bootstrap.min.js"></script>
 <script src="library/mustache.js"></script>
 <script type="text/javascript" src="validations/staffValidations.js"></script>
@@ -14,101 +16,125 @@
 <body>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
-	<div class="container-fluid">
-    	<div class="navbar-header">
-      		<a class="navbar-brand" href="#">Staff Page</a>
-    	</div>
-		<ul class="nav navbar-nav navbar-left">
-			<li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-		</ul>
-		<ul class="nav navbar-nav navbar-right">
-      		<li><a id="profile" href="#"></a></li>
-      		<li><a id="logout" href="loginPage.html"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
-    	</ul>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Staff Page</a>
     </div>
+
+    <ul class="nav navbar-nav navbar-left ">
+    	<li class="dropdown"><a class="dropdown-toggle glyphicon glyphicon-fire" data-toggle="dropdown" href="#">Actions<span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      <li><a  data-toggle="tab" href="#menu1">Calender</a></li>
+      <li><a  data-toggle="tab" href="#menu2">Tables</a></li>
+
+    </ul> 
+   </li>
+
+    <li><a data-toggle="tab" href="#menu3" class=" glyphicon glyphicon-plus">Add/EditOrder</a></li>
+    <li><a data-toggle="tab" href="#menu4" class=" glyphicon glyphicon-euro">Make Bill</a></li>
+
+   </ul>
+
+   <ul class="nav navbar-nav navbar-right">
+      <li><a id="profile" href="#"></a></li>
+      <li><a id="logout" href="loginPage.html"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+  </ul>
+</div>
 </nav>
 
+
 <div class="container">
-	<div class="row">
-		<div class="col-sm-1"></div>
-		<div class="col-sm-10">
-			<div class="tab-content">
-    			<div id="home" class="tab-pane fade in active">
-      				<h2>This is staffs main page</h2>
-      				
-    			</div>
-    		</div>
-    	</div>
-    	<div class="col-sm-1"></div>
-    </div>
+<div class="row">
+<div class="col-sm-1"></div>
+<div class="col-sm-10">
+<div class="tab-content">
+<div class ="tab-pane fade" id="menu1">
+  <table class="display" cellspacing="0" width="100%" id="cal">
+   <tr>
+     <th>Date</th>
+     <th>From</th>
+     <th>To</th>
+   </tr>
+   <tr>
+   <td> </td>
+   <td> </td>
+   <td> </td>
+   </tr>
+  </table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal fade" tabindex="-1" id="myModal" role="dialog" data-keyboard="false" 	data-backdrop="static">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" id="closeModal1" class="close" data-dismiss="modal">&times;</button>
+<h4>Profile</h4>
+</div>
+<div class="modal-body">
+<div class="row">
+<div class="form-group has-feedback">
+<label for="id0">ID:</label>
+<span class="noedit" id="txtId"></span>
+<input type="text" id="id0" class="edit form-control input-sm" placeholder="Id" maxlength="50" tabindex="1" required readonly />
+<div id="iderror0" class="alert alert-danger" hidden></div>
 </div>
 
-<div class="modal fade" tabindex="-1" id="myModal" role="dialog" data-keyboard="false" 	data-backdrop="static">
-	<div class="modal-dialog">
- 		<div class="modal-content">
-   			<div class="modal-header">
-     			<button type="button" id="closeModal1" class="close" data-dismiss="modal">&times;</button>
-     			<h4>Profile</h4>
-   			</div>
-   			<div class="modal-body">
-	   			<div class="row">
-	   				<div class="form-group has-feedback">
-						<label for="id0">ID:</label>
-						<span class="noedit" id="txtId"></span>
-						<input type="text" id="id0" class="edit form-control input-sm" placeholder="Id" maxlength="50" tabindex="1" required readonly />
-						<div id="iderror0" class="alert alert-danger" hidden></div>
-					</div>
-	   			
-					<div class="row">
-						<div class="col-xs-12 col-sm-6 col-md-6">
-							<div class="form-group has-feedback">
-								<label for="firstname0">First name:</label>
-								<span class="noedit" id="txtFirstName" class="noedit"></span>
-	                        	<input type="text" id="firstname0" class="edit form-control input-sm" placeholder="First Name" maxlength="50" tabindex="2" required autofocus />
-								<div id="fnerror0" class="alert alert-danger" hidden></div>
-							</div>
-						</div>
-					
-						<div class="col-xs-12 col-sm-6 col-md-6">
-							<div class="form-group has-feedback">
-								<label for="lastname0">Last name:</label>
-								<span class="noedit" id="txtLastName"></span>
-								<input type="text" id="lastname0" class="edit form-control input-sm" placeholder="Last Name" maxlength="50" tabindex="3" required />
-								<div id="lnerror0" class="alert alert-danger" hidden></div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="form-group has-feedback">
-						<label for="username0">Username:</label>
-						<span class="noedit" id="txtUsername"></span>
-						<input type="text" id="username0" class="edit form-control input-sm" placeholder="Username" maxlength="50" tabindex="4" required />
-						<div id="unerror0" class="alert alert-danger" hidden></div>
-					</div>
-								
-					<div class="form-group has-feedback">
-						<label for="email0">Email address:</label>
-						<span class="noedit" id="txtEmail"></span>
-						<input type="email" id="email0" class="edit form-control input-sm" placeholder="Email Address" maxlength="50" tabindex="5" required />
-						<div id="eaerror0" class="alert alert-danger" hidden></div>
-					</div>
-								
-					<div class="form-group has-feedback">
-						<label for="password0">Password:</label>
-						<span class="noedit" id="txtPassword"></span>
-						<input type="password" id="password0" class="edit form-control input-sm" placeholder="Password" maxlength="18" tabindex="6" required />
-						<div id="pwerror0" class="alert alert-danger" hidden></div>
-					</div>
-	   			</div>
-   			</div>
-   			<div class="modal-footer">
-     			<button type="button" id="closeModal" class="noedit btn btn-default" data-dismiss="modal">Close</button>
-     			<button type="button" id="cancelModal" class="edit btn btn-default">Cancel</button>
-     			<button type="button" id="saveModal" class="edit btn btn-primary" data-dismiss="modal">Save changes</button>
-     			<button type="button" id="editModal" class="noedit btn btn-primary">Edit</button>
-   			</div>
- 		</div>
-	</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-6">
+    <div class="form-group has-feedback">
+      <label for="firstname0">First name:</label>
+	<span class="noedit" id="txtFirstName"></span>
+	  <input type="text" id="firstname0" class="edit form-control input-sm" placeholder="First Name" maxlength="50" tabindex="2" required autofocus />
+<div id="fnerror0" class="alert alert-danger" hidden></div>
+</div>
+</div>
+
+<div class="col-xs-12 col-sm-6 col-md-6">
+  <div class="form-group has-feedback">
+    <label for="lastname0">Last name:</label>
+    <span class="noedit" id="txtLastName"></span>
+      <input type="text" id="lastname0" class="edit form-control input-sm" placeholder="Last Name" maxlength="50" tabindex="3" required />
+  <div id="lnerror0" class="alert alert-danger" hidden></div>
+</div>
+</div>
+</div>
+
+<div class="form-group has-feedback">
+  <label for="username0">Username:</label>
+  <span class="noedit" id="txtUsername"></span>
+    <input type="text" id="username0" class="edit form-control input-sm" placeholder="Username" maxlength="50" tabindex="4" required />
+  <div id="unerror0" class="alert alert-danger" hidden></div>
+</div>
+
+<div class="form-group has-feedback">
+  <label for="email0">Email address:</label>
+  <span class="noedit" id="txtEmail"></span>
+    <input type="email" id="email0" class="edit form-control input-sm" placeholder="Email Address" maxlength="50" tabindex="5" required />
+  <div id="eaerror0" class="alert alert-danger" hidden></div>
+</div>
+
+<div class="form-group has-feedback">
+  <label for="password0">Password:</label>
+  <span class="noedit" id="txtPassword"></span>
+    <input type="password" id="password0" class="edit form-control input-sm" placeholder="Password" maxlength="18" tabindex="6" required />
+  <div id="pwerror0" class="alert alert-danger" hidden></div>
+
+</div>
+</div>
+
+
+<div class="modal-footer">
+  <button type="button" id="closeModal" class="noedit btn btn-default" data-dismiss="modal">Close</button>
+  <button type="button" id="cancelModal" class="edit btn btn-default">Cancel</button>
+  <button type="button" id="saveModal" class="edit btn btn-primary" data-dismiss="modal">Save changes</button>
+  <button type="button" id="editModal" class="noedit btn btn-primary">Edit</button>
+</div>
+</div>
+</div>
 </div>
 
 </body>

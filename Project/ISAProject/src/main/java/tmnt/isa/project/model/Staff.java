@@ -14,7 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,11 +47,19 @@ public class Staff extends UserDetails {
 	@Getter @Setter
 	@OneToMany(mappedBy="staff")
 	private Collection<Evaluation> evaluations = new ArrayList<Evaluation>(); 
-	
+
+	@Getter @Setter
+	@Column(name="WORK_HOURS")
+	@Temporal(TemporalType.DATE)
+	private Date work;
+
+
 	public Staff() {}
 	
-	public Staff(String username, String password, String email, String firstName, String lastName, 
-				 Date dateOfBirth, int clothingSize, int shoeSize, StaffType role) 
+	public Staff(String username, String password, String email, 
+	  String firstName, String lastName, Date dateOfBirth,
+	  ArrayList<Evaluation> evaluations,int clothingSize, int shoeSize,
+				  StaffType role, Date work) 
 	{
 		super();
 		this.username = username;
@@ -64,6 +71,7 @@ public class Staff extends UserDetails {
 		this.clothingSize = clothingSize;
 		this.shoeSize = shoeSize;
 		this.role = role;
-		this.evaluations = new ArrayList<Evaluation>();
+		this.evaluations = evaluations; 
+		this.work = work;	
 	}
 }
