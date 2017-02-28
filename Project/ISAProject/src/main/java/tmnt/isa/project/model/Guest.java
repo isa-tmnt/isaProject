@@ -3,11 +3,7 @@ package tmnt.isa.project.model;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -20,44 +16,42 @@ import lombok.Setter;
 
 @Entity
 @Table(name="GUEST")
-public class Guest {
+public class Guest extends UserDetails {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="GUEST_ID", nullable=false)
-	@Getter @Setter
-	private Long id;
-	
-	@Getter @Setter
-	@Column(nullable=false)
-	private String username;
-	
-	@Getter @Setter
-	@Column(nullable=false)
-	private String password;
-	
-	@Getter @Setter
-	@Column(nullable=false)
-	private String email;
-	
-	@Getter @Setter
-	@Column(name="FIRST_NAME", nullable=false)
-	private String firstName;
-	
-	@Getter @Setter
-	@Column(name="LAST_NAME", nullable=false)
-	private String lastName;
-	
-	@ManyToMany
+	/*@ManyToMany
 	@JoinTable(name="GUESTS_FRIENDS", joinColumns=@JoinColumn(name="GUEST_ID"), 
 			   inverseJoinColumns=@JoinColumn(name="FRIEND_ID")
 	)
 	@Getter @Setter
-	private Collection<Guest> friends;
+	private Collection<Guest> friends = new ArrayList<Guest>();*/
+	
+	//List of received requests
+	/*@ManyToMany
+	@JoinTable(name="GUESTS_RECEIVED_FRIENDS", joinColumns=@JoinColumn(name="GUEST_ID"), 
+			   inverseJoinColumns=@JoinColumn(name="RECEIVED_FRIEND_ID")
+	)
+	@Getter @Setter
+	private Collection<Guest> receivedFriends = new ArrayList<Guest>();
+	
+	//List of sent requests
+	@ManyToMany
+	@JoinTable(name="GUESTS_SENT_FRIENDS", joinColumns=@JoinColumn(name="GUEST_ID"), 
+			   inverseJoinColumns=@JoinColumn(name="SENT_FRIEND_ID")
+	)
+	@Getter @Setter
+	private Collection<Guest> sentFriends = new ArrayList<Guest>();*/
+	
+	/*@OneToMany(mappedBy="currentGuest")
+	@Getter @Setter
+	private Collection<Friendship> friendships = new ArrayList<Friendship>();
+	
+	@OneToMany(mappedBy="friend")
+	@Getter @Setter
+	private Collection<Friendship> friendships1 = new ArrayList<Friendship>();*/
 	
 	@OneToMany(mappedBy="guest")
 	@Getter @Setter
-	private Collection<Evaluation> evaluations;
+	private Collection<Evaluation> evaluations = new ArrayList<Evaluation>();
 	
 	public Guest() {}
 	
@@ -68,7 +62,9 @@ public class Guest {
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		friends = new ArrayList<Guest>();
-		evaluations = new ArrayList<Evaluation>();
+		//this.friends = new ArrayList<Guest>();
+		//this.receivedFriends = new ArrayList<Guest>();
+		//this.sentFriends = new ArrayList<Guest>();
+		this.evaluations = new ArrayList<Evaluation>();
 	}
 }

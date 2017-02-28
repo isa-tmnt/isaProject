@@ -2,8 +2,6 @@ package tmnt.isa.project.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,12 +22,15 @@ public class Evaluation {
 	private Long id;
 	
 	@Column(nullable=false)
-	@Enumerated(EnumType.ORDINAL)
-	private EvaluationType value;
+	private double value;
 	
 	@ManyToOne
 	@JoinColumn(name="GUEST_ID", nullable=false)
 	private Guest guest;
+	
+	@ManyToOne
+	@JoinColumn(name="STAFF_ID")
+	private Staff staff;
 	
 	@ManyToOne
 	@JoinColumn(name="DISH_ID")
@@ -45,7 +46,7 @@ public class Evaluation {
 	
 	public Evaluation() {}
 	
-	public Evaluation(EvaluationType value, Guest guest, Dish dish, Drink drink, Restaurant restaurant) {
+	public Evaluation(double value, Guest guest, Dish dish, Drink drink, Restaurant restaurant) {
 		super();
 		this.value = value;
 		this.guest = guest;

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="library/jquery-3.1.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="library/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/login_styles.css" />
+<script src="library/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="validations/validations.js"></script>
+<title>Login Page</title>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-4" ></div>
+    	<div class="col-sm-4" >
+			<h2 class="form-signin-heading">Sign in</h2>
+			<label for="username" class="sr-only">Username</label>
+			<input type="text" id="username" class="form-control input-lg" maxlength="16" placeholder="Username" required autofocus />
+			<div id="unerror" class="alert alert-danger" hidden>
+ 					username can't be empty!
+			</div>
+			<label for="password" class="sr-only">Password</label>
+			<input type="password" id="password" class="form-control input-lg" maxlength="18" placeholder="Password" required />
+			<div id="pwerror" class="alert alert-danger" hidden>
+				password can't be empty!
+			</div>
+			<div class="checkbox" ></div>
+			<button class="btn btn-lg btn-primary btn-block" id="signIn" type="submit" >Sign in</button>
+			<div class="cen" >
+				<a href="createAccount.html">Create account</a>
+    		</div>
+    		<hr>
+    		<div id="divError" class="alert alert-danger collapse">
+    			<a id="linkClose" href="#" class="close">&times;</a>
+    			<div id="divErrorText"></div>
+    		</div>
+    	</div>
+    	<div class="col-sm-4" ></div>
+	</div>
+</div>
+</body>
+</html>

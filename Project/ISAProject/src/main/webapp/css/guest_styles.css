@@ -1,0 +1,47 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	padding-top: 70px;
+    padding-bottom: 70px;
+    background-color: #eee;
+}
+
+.modal-body {
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+#myModal .modal-dialog  {
+	width:25%;
+} 
+
+.right {
+	margin-right: 300px;
+}
+
+.noedit {
+	display: initial;
+}
+
+.edit {
+	display: none;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #c0c0c0;
+}
+
+th {
+	background-color: #808080;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+

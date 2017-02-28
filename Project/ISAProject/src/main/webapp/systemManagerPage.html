@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="library/jquery-3.1.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="library/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/guest_styles.css" />
+<script src="library/js/bootstrap.min.js"></script>
+<script src="library/mustache.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="validations/systemManagerValidations.js"></script>
+<title>SystemManager Page</title>
+</head>
+<body>
+<!-- aktivacija korisnika -->
+<!-- glavni sistem menager moze da dodaje druge sistem menagere -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+    	<div class="navbar-header">
+      		<a class="navbar-brand" href="#">SystemManager Page</a>
+    	</div>
+		<ul class="nav navbar-nav navbar-left" id="">
+			<li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Restaurant Managers<span class="caret"></span></a>
+	        	<ul class="dropdown-menu">
+	          		<li><a data-toggle="tab" href="#menu1">Add Restaurant Manager</a></li>
+	          		<li><a data-toggle="tab" href="#menu2">List of Restaurant Managers</a></li>
+	        	</ul>
+      		</li>
+			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Restaurants<span class="caret"></span></a>
+	        	<ul class="dropdown-menu">
+	          		<li><a data-toggle="tab" href="#menu3">Add Restaurant</a></li>
+	          		<li><a data-toggle="tab" href="#menu4">List of Restaurants</a></li>
+	        	</ul>
+      		</li>
+      		
+      		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">System Manager<span class="caret"></span></a>
+	        	<ul class="dropdown-menu">
+	          		<li><a data-toggle="tab" href="#menu5">Add System Manager</a></li>
+	          		<li><a data-toggle="tab" href="#menu6">List of System Managers</a></li>
+	        	</ul>
+      		</li>
+      		
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+      		<li><a id="profile" href="#"></a></li>
+      		<li><a id="logout" href="loginPage.html"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+    	</ul>
+    </div>
+</nav>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-10">
+			<div class="tab-content">
+    			<div id="home" class="tab-pane fade in active">
+      				<h2>This is system managers main page</h2>
+      				
+    			</div>
+				<div id="menu1" class="tab-pane fade">
+      				<div class="row">
+					    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+							<h2>Add Restaurant Manager</h2>
+							<hr>
+							<div class="row">
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="form-group has-feedback">
+				                        <input type="text" id="firstname" class="form-control input-lg" placeholder="First Name" maxlength="50" tabindex="1" required autofocus />
+										<div id="fnerror" class="alert alert-danger" hidden></div>
+									</div>
+								</div>
+								
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="form-group has-feedback">
+										<input type="text" id="lastname" class="form-control input-lg" placeholder="Last Name" maxlength="50" tabindex="2" required />
+										<div id="lnerror" class="alert alert-danger" hidden></div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-group has-feedback">
+								<input type="text" id="username" class="form-control input-lg" placeholder="Username" maxlength="16" tabindex="3" required />
+								<div id="unerror" class="alert alert-danger" hidden>
+			  						
+								</div>
+							</div>
+							
+							<div class="form-group has-feedback">
+								<input type="email" id="email" class="form-control input-lg" placeholder="Email Address" maxlength="50" tabindex="4" required />
+								<div id="eaerror" class="alert alert-danger" hidden>
+			  						
+								</div>
+							</div>
+							
+							<div class="form-group has-feedback">
+								<input type="password" id="password" class="form-control input-lg" placeholder="Password" maxlength="18" tabindex="5" required />
+								<div id="pwerror" class="alert alert-danger" hidden>
+			  						
+								</div>
+							</div>
+							
+							<div class="form-group has-feedback">
+								<input type="password" id="rpassword" class="form-control input-lg" placeholder="Confirm Password" maxlength="18" tabindex="6" required />
+								<div id="rpwerror" class="alert alert-danger" hidden>
+			  						
+								</div>
+							</div>
+							
+							<hr>
+							<div class="row">
+								<div class="col-xs-12 col-md-6 col-md-offset-3">
+									<input type="submit" id="register" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="7" />
+								</div>
+							</div>
+							<hr>
+							<div id="divError1" class="alert alert-danger collapse">
+					   			<a id="linkClose1" href="#" class="close">&times;</a>
+					   			<div id="divErrorText1"></div>
+					   		</div>
+						</div>
+					</div>
+    			</div>
+				<div id="menu2" class="tab-pane fade">
+      				<h2>List of Restaurant Managers</h2>
+      				<div class="well">
+	      				<div class="table-bordered">          
+							<table class="table">
+								<thead>
+							    	<tr>
+							    		<th>Id</th>
+							      		<th>Username</th>
+							      		<th>First Name</th>
+							      		<th>Last Name</th>
+							    	</tr>
+							  	</thead>
+							  	<tbody id="table2">
+							    	<template id="resmanager-template">
+							    		<tr>
+								    		<td>{{id}}</td>
+								    		<td>{{username}}</td>
+								    		<td>{{firstName}}</td>
+								    		<td>{{lastName}}</td>
+							    		</tr>
+							    	</template>
+							  	</tbody>
+							</table>
+						</div>
+					</div>
+    			</div>
+				<div id="menu3" class="tab-pane fade">
+      				<div class="row">
+					    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+							<h2>Add Restaurant</h2>
+							<hr>
+							<div class="form-group has-feedback">
+								<input type="text" id="name" class="form-control input-lg" placeholder="Name" maxlength="50" tabindex="1" required />
+								<div id="naerror" class="alert alert-danger" hidden>
+			  						
+								</div>
+							</div>
+							
+							<div class="form-group has-feedback">
+								<input type="text" id="type" class="form-control input-lg" placeholder="Restaurant type" maxlength="90" tabindex="2" required />
+								<div id="tyerror" class="alert alert-danger" hidden>
+			  						
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-xs-12 col-md-6 col-md-offset-3">
+									<input type="submit" id="addrest" value="Add" class="btn btn-primary btn-block btn-lg" tabindex="3" />
+								</div>
+							</div>
+							<hr>
+							<div id="divError2" class="alert alert-danger collapse">
+					   			<a id="linkClose2" href="#" class="close">&times;</a>
+					   			<div id="divErrorText2"></div>
+					   		</div>
+						</div>
+					</div>
+    			</div>
+				<div id="menu4" class="tab-pane fade">
+      				<h2>List of Restaurants</h2>
+      				<div class="well">
+	      				<div class="table-bordered">          
+							<table class="table">
+								<thead>
+							    	<tr>
+							    		<th>Id</th>
+							      		<th>Name</th>
+							      		<th>Restaurant type</th>
+							    	</tr>
+							  	</thead>
+							  	<tbody id="table4">
+							    	<template id="restaurant-template">
+							    		<tr>
+								    		<td>{{id}}</td>
+								    		<td>{{name}}</td>
+								    		<td>{{typeDescription}}</td>
+							    		</tr>
+							    	</template>
+							  	</tbody>
+							</table>
+						</div>
+					</div>
+    			</div>
+    			<div id="menu5" class="tab-pane fade">
+      				<div class="row">
+					    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+							<h2>Add System Manager</h2>
+							<hr>
+							<div class="row">
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="form-group has-feedback">
+				                        <input type="text" id="firstname5" class="form-control input-lg" placeholder="First Name" maxlength="50" tabindex="1" required autofocus />
+										<div id="fnerror5" class="alert alert-danger" hidden></div>
+									</div>
+								</div>
+								
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="form-group has-feedback">
+										<input type="text" id="lastname5" class="form-control input-lg" placeholder="Last Name" maxlength="50" tabindex="2" required />
+										<div id="lnerror5" class="alert alert-danger" hidden></div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-group has-feedback">
+								<input type="text" id="username5" class="form-control input-lg" placeholder="Username" maxlength="16" tabindex="3" required />
+								<div id="unerror5" class="alert alert-danger" hidden>
+			  						
+								</div>
+							</div>
+							
+							<div class="form-group has-feedback">
+								<input type="email" id="email5" class="form-control input-lg" placeholder="Email Address" maxlength="50" tabindex="4" required />
+								<div id="eaerror5" class="alert alert-danger" hidden>
+			  						
+								</div>
+							</div>
+							
+							<div class="form-group has-feedback">
+								<input type="password" id="password5" class="form-control input-lg" placeholder="Password" maxlength="18" tabindex="5" required />
+								<div id="pwerror5" class="alert alert-danger" hidden>
+			  						
+								</div>
+							</div>
+							
+							<div class="form-group has-feedback">
+								<input type="password" id="rpassword5" class="form-control input-lg" placeholder="Confirm Password" maxlength="18" tabindex="6" required />
+								<div id="rpwerror5" class="alert alert-danger" hidden>
+			  						
+								</div>
+							</div>
+							
+							<hr>
+							<div class="row">
+								<div class="col-xs-12 col-md-6 col-md-offset-3">
+									<input type="submit" id="register5" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="7" />
+								</div>
+							</div>
+							<hr>
+							<div id="divError5" class="alert alert-danger collapse">
+					   			<a id="linkClose5" href="#" class="close">&times;</a>
+					   			<div id="divErrorText5"></div>
+					   		</div>
+						</div>
+					</div>
+    			</div>
+    			<div id="menu6" class="tab-pane fade">
+      				<h2>List of System Managers</h2>
+      				<div class="well">
+	      				<div class="table-bordered">          
+							<table class="table">
+								<thead>
+							    	<tr>
+							    		<th>Id</th>
+							      		<th>Username</th>
+							      		<th>First Name</th>
+							      		<th>Last Name</th>
+							    	</tr>
+							  	</thead>
+							  	<tbody id="table6">
+							    	<template id="sysmanager-template">
+							    		<tr>
+								    		<td>{{id}}</td>
+								    		<td>{{username}}</td>
+								    		<td>{{firstName}}</td>
+								    		<td>{{lastName}}</td>
+							    		</tr>
+							    	</template>
+							  	</tbody>
+							</table>
+						</div>
+					</div>
+    			</div>
+    		</div>
+    	</div>
+    	<div class="col-sm-1"></div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="successModal">
+	<div class="modal-dialog modal-sm">
+ 		<div class="modal-content">
+   			<div class="modal-header">
+     			<button type="button" id="closeModal" class="close" data-dismiss="modal">&times;</button>
+     			<h4>Success</h4>
+   			</div>
+   			<div class="modal-body">
+     			<h2>Registration Successful</h2>
+   			</div>
+   			<div class="modal-footer">
+     			<button type="button" id="closeModal1" class="btn btn-success" data-dismiss="modal">Close</button>
+   			</div>
+ 		</div>
+	</div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="myModal" role="dialog" data-keyboard="false" 	data-backdrop="static">
+	<div class="modal-dialog">
+ 		<div class="modal-content">
+   			<div class="modal-header">
+     			<button type="button" id="closeModal1" class="close" data-dismiss="modal">&times;</button>
+     			<h4>Profile</h4>
+   			</div>
+   			<div class="modal-body">
+	   			<div class="row">
+	   				<div class="form-group has-feedback">
+						<label for="id0">ID:</label>
+						<span class="noedit" id="txtId"></span>
+						<input type="text" id="id0" class="edit form-control input-sm" placeholder="Id" maxlength="50" tabindex="1" required readonly />
+						<div id="iderror0" class="alert alert-danger" hidden></div>
+					</div>
+	   			
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group has-feedback">
+								<label for="firstname0">First name:</label>
+								<span class="noedit" id="txtFirstName" class="noedit"></span>
+	                        	<input type="text" id="firstname0" class="edit form-control input-sm" placeholder="First Name" maxlength="50" tabindex="2" required autofocus />
+								<div id="fnerror0" class="alert alert-danger" hidden></div>
+							</div>
+						</div>
+					
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group has-feedback">
+								<label for="lastname0">Last name:</label>
+								<span class="noedit" id="txtLastName"></span>
+								<input type="text" id="lastname0" class="edit form-control input-sm" placeholder="Last Name" maxlength="50" tabindex="3" required />
+								<div id="lnerror0" class="alert alert-danger" hidden></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group has-feedback">
+						<label for="username0">Username:</label>
+						<span class="noedit" id="txtUsername"></span>
+						<input type="text" id="username0" class="edit form-control input-sm" placeholder="Username" maxlength="50" tabindex="4" required />
+						<div id="unerror0" class="alert alert-danger" hidden></div>
+					</div>
+								
+					<div class="form-group has-feedback">
+						<label for="email0">Email address:</label>
+						<span class="noedit" id="txtEmail"></span>
+						<input type="email" id="email0" class="edit form-control input-sm" placeholder="Email Address" maxlength="50" tabindex="5" required />
+						<div id="eaerror0" class="alert alert-danger" hidden></div>
+					</div>
+								
+					<div class="form-group has-feedback">
+						<label for="password0">Password:</label>
+						<span class="noedit" id="txtPassword"></span>
+						<input type="password" id="password0" class="edit form-control input-sm" placeholder="Password" maxlength="18" tabindex="6" required />
+						<div id="pwerror0" class="alert alert-danger" hidden></div>
+					</div>
+	   			</div>
+   			</div>
+   			<div class="modal-footer">
+     			<button type="button" id="closeModal" class="noedit btn btn-default" data-dismiss="modal">Close</button>
+     			<button type="button" id="cancelModal" class="edit btn btn-default">Cancel</button>
+     			<button type="button" id="saveModal" class="edit btn btn-primary" data-dismiss="modal">Save changes</button>
+     			<button type="button" id="editModal" class="noedit btn btn-primary">Edit</button>
+   			</div>
+ 		</div>
+	</div>
+</div>
+
+</body>
+</html>

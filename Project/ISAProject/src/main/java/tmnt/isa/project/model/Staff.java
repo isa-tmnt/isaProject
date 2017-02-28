@@ -1,16 +1,16 @@
 package tmnt.isa.project.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,33 +20,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name="STAFF")
-public class Staff{
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="STAFF_ID", unique=true, nullable=false)
-	@Getter @Setter
-	private Long id;
-	
-	@Getter @Setter
-	@Column(nullable=false)
-	private String username;
-	
-	@Getter @Setter
-	@Column(nullable=false)
-	private String password;
-	
-	@Getter @Setter
-	@Column(nullable=false)
-	private String email;
-	
-	@Getter @Setter
-	@Column(name="FIRST_NAME", nullable=false)
-	private String firstName;
-	
-	@Getter @Setter
-	@Column(name="LAST_NAME", nullable=false)
-	private String lastName;
+public class Staff extends UserDetails {
 	
 	@Getter @Setter
 	@Column(name="DATE_OF_BIRTH")
@@ -62,7 +36,7 @@ public class Staff{
 	private int shoeSize; 
 	
 	@Getter @Setter
-	@Column(name="ROLE", length=10)
+	@Column(name="ROLE")
 	@Enumerated(EnumType.STRING)
 	private StaffType role;
 	
@@ -70,6 +44,10 @@ public class Staff{
 	@ManyToOne
 	@JoinColumn(name="RESTAURANT_ID")
 	private Restaurant restaurant;
+	
+	@Getter @Setter
+	@OneToMany(mappedBy="staff")
+	private Collection<Evaluation> evaluations; 
 	
 	public Staff() {}
 	
@@ -86,5 +64,6 @@ public class Staff{
 		this.clothingSize = clothingSize;
 		this.shoeSize = shoeSize;
 		this.role = role;
+		this.evaluations = new ArrayList<Evaluation>();
 	}
 }

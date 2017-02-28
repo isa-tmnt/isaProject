@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="library/jquery-3.1.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="library/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/account_styles.css" />
+<script src="library/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="validations/validations.js"></script>
+<title>Create your Account</title>
+</head>
+<body>
+<div class="container">
+<div class="row">
+	<div class="col-sm-1" ></div>
+   	<div class="col-sm-10" >
+
+		<div class="row">
+		    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+				<h2>Create your Account</h2>
+				<hr>
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="form-group has-feedback">
+	                        <input type="text" id="firstname" class="form-control input-lg" placeholder="First Name" maxlength="50" tabindex="1" required autofocus />
+							<div id="fnerror" class="alert alert-danger" hidden></div>
+						</div>
+					</div>
+					
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<div class="form-group has-feedback">
+							<input type="text" id="lastname" class="form-control input-lg" placeholder="Last Name" maxlength="50" tabindex="2" required />
+							<div id="lnerror" class="alert alert-danger" hidden></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group has-feedback">
+					<input type="text" id="username" class="form-control input-lg" placeholder="Username" maxlength="16" tabindex="3" required />
+					<div id="unerror" class="alert alert-danger" hidden>
+  						
+					</div>
+				</div>
+				
+				<div class="form-group has-feedback">
+					<input type="email" id="email" class="form-control input-lg" placeholder="Email Address" maxlength="50" tabindex="4" required />
+					<div id="eaerror" class="alert alert-danger" hidden>
+  						
+					</div>
+				</div>
+				
+				<div class="form-group has-feedback">
+					<input type="password" id="password" class="form-control input-lg" placeholder="Password" maxlength="18" tabindex="5" required />
+					<div id="pwerror" class="alert alert-danger" hidden>
+  						
+					</div>
+				</div>
+				
+				<div class="form-group has-feedback">
+					<input type="password" id="rpassword" class="form-control input-lg" placeholder="Confirm Password" maxlength="18" tabindex="6" required />
+					<div id="rpwerror" class="alert alert-danger" hidden>
+  						
+					</div>
+				</div>
+				
+				<hr>
+				<div class="row">
+					<div class="col-xs-12 col-md-6">
+						<input type="submit" id="register" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="7" />
+					</div>
+					<div class="col-xs-12 col-md-6">
+						<a href="loginPage.html" class="btn btn-success btn-block btn-lg">Sign In</a>
+					</div>
+				</div>
+				<hr>
+				<div id="divError1" class="alert alert-danger collapse">
+		   			<a id="linkClose1" href="#" class="close">&times;</a>
+		   			<div id="divErrorText1"></div>
+		   		</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-1" ></div>
+</div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="successModal">
+	<div class="modal-dialog modal-sm">
+ 		<div class="modal-content">
+   			<div class="modal-header">
+     			<button type="button" id="closeModal" class="close" data-dismiss="modal">&times;</button>
+     			<h4>Success</h4>
+   			</div>
+   			<div class="modal-body">
+     			<h2>Registration Successful</h2>
+   			</div>
+   			<div class="modal-footer">
+     			<button type="button" id="closeModal1" class="btn btn-success" data-dismiss="modal">Close</button>
+   			</div>
+ 		</div>
+	</div>
+</div>
+
+</body>
+</html>

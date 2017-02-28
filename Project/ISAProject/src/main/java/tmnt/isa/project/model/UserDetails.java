@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-import javax.persistence.TableGenerator;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,12 +17,6 @@ import lombok.Setter;
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class UserDetails {
 	
-	/*@TableGenerator(name = "USER_GEN", 
-			table = "ID_GEN", 
-			pkColumnName = "GEN_NAME", 
-			valueColumnName = "GEN_VAL",
-			allocationSize = 1
-	)*/
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name="ID", unique=true, nullable=false)
@@ -31,7 +24,7 @@ public abstract class UserDetails {
 	protected Long id;
 	
 	@Getter @Setter
-	@Column(nullable=false)
+	@Column(nullable=false, unique=true)
 	protected String username;
 	
 	@Getter @Setter
@@ -39,7 +32,7 @@ public abstract class UserDetails {
 	protected String password;
 	
 	@Getter @Setter
-	@Column(nullable=false)
+	@Column(nullable=false, unique=true)
 	protected String email;
 	
 	@Getter @Setter

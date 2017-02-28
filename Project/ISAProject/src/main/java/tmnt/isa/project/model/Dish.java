@@ -37,7 +37,7 @@ public class Dish {
 	private Restaurant restaurant;
 	
 	@OneToMany(mappedBy="dish")
-	private Collection<Evaluation> evaluations;
+	private Collection<Evaluation> evaluations = new ArrayList<Evaluation>();
 	
 	public Dish() {}
 	
@@ -46,6 +46,6 @@ public class Dish {
 		this.name = name;
 		this.shortDescription = shortDescription;
 		this.price = price;
-		evaluations = new ArrayList<Evaluation>();
+		this.evaluations = new ArrayList<Evaluation>();
 	}
 }

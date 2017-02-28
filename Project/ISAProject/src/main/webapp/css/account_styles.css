@@ -1,0 +1,17 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #eee;
+}
+
+.glyphicon-ok {
+	color: #00ff00;
+	visibility: hidden;
+}
+
+.glyphicon-remove {
+	color: #ff0000;
+	visibility: hidden;
+}

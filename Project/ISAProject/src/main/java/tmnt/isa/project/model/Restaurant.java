@@ -28,22 +28,22 @@ public class Restaurant {
 	private String typeDescription;
 	
 	@OneToMany(mappedBy="restaurant")
-	private Collection<Dish> dishMenu;
+	private Collection<Dish> dishMenu = new ArrayList<Dish>();
 	
 	@OneToMany(mappedBy="restaurant")
-	private Collection<Drink> drinkMenu;
+	private Collection<Drink> drinkMenu = new ArrayList<Drink>();
 	
 	@OneToMany(mappedBy="restaurant")
-	private Collection<Staff> staff;
+	private Collection<Staff> staff = new ArrayList<Staff>();
 	
 	@OneToMany(mappedBy="restaurant")
-	private Collection<RestaurantManager> restaurantManagers;
+	private Collection<RestaurantManager> restaurantManagers = new ArrayList<RestaurantManager>();
 	
 	@OneToMany(mappedBy="restaurant")
-	private Collection<Evaluation> evaluations;
+	private Collection<Evaluation> evaluations = new ArrayList<Evaluation>();
 	
 	@OneToMany(mappedBy="restaurant")
-	private Collection<Reservation> reservations;
+	private Collection<Reservation> reservations = new ArrayList<Reservation>();
 	
 	public Restaurant() {}
 	
@@ -51,10 +51,11 @@ public class Restaurant {
 		super();
 		this.name = name;
 		this.typeDescription = typeDescription;
-		staff = new ArrayList<Staff>();
-		restaurantManagers = new ArrayList<RestaurantManager>();
-		evaluations = new ArrayList<Evaluation>();
-		dishMenu = new ArrayList<Dish>();
-		drinkMenu = new ArrayList<Drink>();
+		this.staff = new ArrayList<Staff>();
+		this.restaurantManagers = new ArrayList<RestaurantManager>();
+		this.evaluations = new ArrayList<Evaluation>();
+		this.dishMenu = new ArrayList<Dish>();
+		this.drinkMenu = new ArrayList<Drink>();
+		this.reservations = new ArrayList<Reservation>();
 	}
 }
