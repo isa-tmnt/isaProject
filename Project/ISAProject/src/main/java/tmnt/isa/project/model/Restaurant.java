@@ -42,8 +42,8 @@ public class Restaurant {
 	@OneToMany(mappedBy="restaurant")
 	private Collection<Evaluation> evaluations = new ArrayList<Evaluation>();
 	
-	@OneToMany(mappedBy="restaurant")
-	private Collection<Reservation> reservations = new ArrayList<Reservation>();
+	//@OneToMany(mappedBy="restaurant")
+	//private Collection<Reservation> reservations = new ArrayList<Reservation>();
 	
 	public Restaurant() {}
 	
@@ -56,6 +56,6 @@ public class Restaurant {
 		this.evaluations = new ArrayList<Evaluation>();
 		this.dishMenu = new ArrayList<Dish>();
 		this.drinkMenu = new ArrayList<Drink>();
-		this.reservations = new ArrayList<Reservation>();
+		//this.reservations = new ArrayList<Reservation>();
 	}
 }

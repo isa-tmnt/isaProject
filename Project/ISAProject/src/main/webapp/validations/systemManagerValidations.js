@@ -362,7 +362,7 @@ $(document).ready(function() {
 			$("#rpwerror").show();
 			$("#rterror").hide();
 			return false;
-		} else if(restaurant === "") {
+		} else if(restaurant == null) {
 			$("#rterror").text("Restaurant field can't be empty!");
 			$("#fnerror").hide();
 			$("#lnerror").hide();
