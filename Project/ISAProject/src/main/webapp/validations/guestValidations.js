@@ -237,11 +237,242 @@ $(document).ready(function() {
 			            restaurant.id,
 			            restaurant.name,
 			            restaurant.typeDescription,
-			            "<td><button data-id=\"" + restaurant.id + "\" type=\"button\" class=\"reserve btn btn-primary btn-sm\" data-toggle=\"tooltip\" data-placement=\"right\" title=\"Reservation\">Reservation</button></td>"
+			            "<a href=\"#menu5\" data-id=\"" + restaurant.id + "\" data-toggle=\"tab\" class=\"reserve btn btn-primary btn-sm\" role=\"button\">Reservation</a>"
+			            /*"<td><button data-id=\"" + restaurant.id + "\" type=\"button\" class=\"reserve btn btn-primary btn-sm\" data-toggle=\"tooltip\" data-placement=\"right\" title=\"Reservation\">Reservation</button></td>"*/
 			        ] ).draw( false );
 				});
 			}
 		});
+	});
+	
+	//Get data for reservation
+	$("#exampleH").delegate(".reserve", "click", function() {
+		var restaurantId = $(this).attr("data-id");
+		
+		$.ajax({
+			headers: { 
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json',
+		        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth') 
+		    },
+			type: "GET",
+			url: "/api/restaurants/get/" + restaurantId,
+			dataType: "json",
+			success: function(restaurant) {
+				$("#restId5").val(restaurant.id);
+				$("#restaurant5").val(restaurant.name);
+			}
+		});
+	});
+	
+	$("#linkClose6").on("click", function() {
+		$("#divError6").hide("fade");
+	});
+	
+	//Add Reservation
+	$("#next5").on("click", function() {
+		var restaurantId = $("#restId5").val();
+		var guestId = $("#txtId").text();
+		var date = $("#date5").val();
+		var duration = document.getElementById("duration5").value;
+		//var dateTime = date.split("T");
+		//alert(dateTime[0] + " " + dateTime[1] + ":00");
+		
+		if(date === "") {
+			$("#divErrorText6").text("Date and Time field can't be empty!");
+			$("#divError6").show("fade");
+			return false;
+		} else if(duration == 0) {
+			$("#divErrorText6").text("Duration field can't be empty!");
+			$("#divError6").show("fade");
+			return false;
+		}
+		
+		var reservation = {
+			restaurantId: restaurantId,
+			guestId: guestId,
+			reservationDate: date + ":00",
+			duration: duration
+		};
+		
+		$.ajax({
+			headers: { 
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json',
+		        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth') 
+		    },
+			type: "POST",
+			url: "/api/reservations",
+			data: JSON.stringify(reservation),
+			dataType: "json",
+			success: function(reservation) {
+				$("#reserId6").val(reservation.id);
+				$("#restId6").val(reservation.restaurantId);
+				$("#restaurant6").text($("#restaurant5").val());
+				$("#date6").text(new Date(reservation.reservationDate).toUTCString());
+				$("#duration6").text(reservation.duration);
+				alert("Reservation made!");
+			}
+		});
+	});
+	
+	//List of friends to add to reservation
+	$("#menu6").ready(function() {
+		var $table6 = $("#table6");
+		var friend6Template = $("#friend6-template").html();
+		var s = String($("#txtId").text());
+		
+		$.ajax({
+			headers: { 
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json',
+		        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth') 
+		    },
+			type: "GET",
+			url: "/api/friends",
+			dataType: "json",
+			success: function(friendships) {
+				$.each(friendships, function(i, friendship) {
+					if(friendship.currentGuestId == $("#txtId").text()) {
+						$.ajax({
+							headers: { 
+						        'Accept': 'application/json',
+						        'Content-Type': 'application/json',
+						        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth') 
+						    },
+							type: "GET",
+							url: "/api/guests/get/" + String(friendship.friendId),
+							dataType: "json",
+							success: function(guest) {
+								$table6.append(Mustache.render(friend6Template, guest));
+							}
+						});
+					}
+				});
+			}
+		});
+	});
+	
+	// /api/reservationfriends
+	//Add friends to reservation 
+	$("#table6").delegate(".add6", "click", function() {
+		var reservationId = $("#reserId6").val();
+		var friendId = $(this).attr("data-id");
+		
+		var reservationFriends = {
+			reservationId: reservationId,
+			friendId: friendId
+		};
+		
+		$.ajax({
+			headers: { 
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json',
+		        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth') 
+		    },
+			type: "POST",
+			url: "/api/reservationfriends",
+			data: JSON.stringify(reservationFriends),
+			dataType: "json",
+			success: function(reservationFriends) {
+				alert("Add friend to reservation!");
+			},
+			error: function(jqXHR) {
+				alert("This user is already added in this reservation!");
+			}
+		});
+	});
+	
+	//Add friends to restaurant reservations
+	$("#next6").on("click", function() {
+		$("#reserId7").val($("#reserId6").val());
+		$("#restId7").val($("#restId6").val());
+		$("#restaurant7").text($("#restaurant6").text());
+		$("#date7").text($("#date6").text());
+		$("#duration7").text($("#duration6").text());
+		
+		var arrayOfFriends = [];
+		
+		$.ajax({
+			headers: { 
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json',
+		        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth') 
+		    },
+			type: "GET",
+			url: "/api/reservationfriends",
+			dataType: "json",
+			success: function(reservationFriends) {
+				$.each(reservationFriends, function(i, resFriend) {
+					if(resFriend.reservationId == $("#reserId7").val()) {
+						$.ajax({
+							headers: { 
+						        'Accept': 'application/json',
+						        'Content-Type': 'application/json',
+						        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth') 
+						    },
+							type: "GET",
+							url: "/api/guests",
+							dataType: "json",
+							success: function(guests) {
+								$.each(guests, function(j, guest) {
+									if(resFriend.friendId == guest.id) {
+										arrayOfFriends.push(guest.firstName + " " + guest.lastName);
+									}
+								});
+								$("#friends7").text(arrayOfFriends);
+							}
+						});
+					}
+				});
+			}
+		});
+	});
+	
+	function cancelReservation(s) {
+		if(s === "menu6") {
+			var reservationId = $("#reserId6").val();
+		} else if(s === "menu7") {
+			var reservationId = $("#reserId7").val();
+		}
+		
+		$.ajax({
+			headers: { 
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json',
+		        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth') 
+		    },
+			type: "DELETE",
+			url: "/api/reservationfriends/" + reservationId,
+			dataType: "json",
+			success: function() {},
+			error: function() {
+				$.ajax({
+					headers: { 
+				        'Accept': 'application/json',
+				        'Content-Type': 'application/json',
+				        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth') 
+				    },
+					type: "DELETE",
+					url: "/api/reservations/" + reservationId,
+					dataType: "json",
+					success: function() {},
+					error: function() {
+						window.location.href = "mainGuestPage.html";
+					}
+				});
+			}
+		});
+	}
+	
+	//Cancel Reservation in menu6
+	$("#back6").on("click", function() {
+		cancelReservation("menu6");
+	});
+	
+	//Cancel Reservation in menu7
+	$("#cancel7").on("click", function() {
+		cancelReservation("menu7");
 	});
 	
 	//List of guests

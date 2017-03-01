@@ -14,7 +14,6 @@
 <title>Main Page</title>
 </head>
 <body>
-<!-- aktivacija preko email-a -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container-fluid">
     	<div class="navbar-header">
@@ -28,6 +27,7 @@
 	          		<li><a data-toggle="tab" href="#menu2">List of Friends</a></li>
 					<li><a data-toggle="tab" href="#menu3">List of Received Friend Requests</a></li>
 					<li><a data-toggle="tab" href="#menu4">List of Sent Friend Requests</a></li>
+					<li><a data-toggle="tab" href="#menu5">Reservation</a></li>
 	        	</ul>
       		</li>
 		</ul>
@@ -44,8 +44,7 @@
 		<div class="col-sm-10">
 			<div class="tab-content">
     			<div id="home" class="tab-pane fade in active">
-      				<h2>This is guest main page</h2>
-      				<!-- List of Restaurants -->
+      				<h2>List of Restaurants</h2>
       				<table id="exampleH" class="display" cellspacing="0" width="100%">
       					<thead>
       						<tr>
@@ -68,6 +67,250 @@
 				        </tbody>
       				</table>
     			</div>
+    			<div id="menu5" class="tab-pane fade">
+    				<div class="row">
+					    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+					    	<h2>Reservation</h2>
+					    	<hr>
+					    	<input type="text" id="restId5" class="edit" />
+					    	<div class="row">
+								<div class="col-xs-12 col-sm-4 col-md-4">
+									<div class="form-group has-feedback">
+				                        <span><strong>Restaurant:</strong></span>
+									</div>
+								</div>
+								
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="form-group has-feedback">
+										<input type="text" id="restaurant5" class="form-control input-sm" placeholder="Restaurant" maxlength="50" tabindex="1" readonly required />
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-xs-12 col-sm-4 col-md-4">
+									<div class="form-group has-feedback">
+				                        <span><strong>Date and time:</strong></span>
+									</div>
+								</div>
+								
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="form-group has-feedback">
+										<input type="datetime-local" id="date5" class="form-control input-sm" placeholder="Date and Time" tabindex="2" required />
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-xs-12 col-sm-4 col-md-4">
+									<div class="form-group has-feedback">
+				                        <span><strong>Duration:</strong></span>
+									</div>
+								</div>
+								
+								<div class="col-xs-12 col-sm-3 col-md-3">
+									<div class="form-group has-feedback">
+										<input type="number" id="duration5" class="form-control input-sm" tabindex="4" required />
+									</div>
+								</div>
+								
+								<div class="col-xs-12 col-sm-2 col-md-2">
+									<div class="form-group has-feedback">
+										<span><strong>hours</strong></span>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-xs-12 col-sm-3 col-md-3 col-sm-offset-3 col-md-offset-4">
+									<a href="#home" data-toggle="tab" id="back5" class="btn btn-primary btn-block btn-sm" tabindex="5">&#60;&#60; Back</a>
+								</div>
+								<div class="col-xs-12 col-sm-3 col-md-3">
+									<a href="#menu6" data-toggle="tab" id="next5" class="btn btn-primary btn-block btn-sm" tabindex="6">Next &#62;&#62;</a>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div id="divError6" class="alert alert-danger collapse">
+						   			<a id="linkClose6" href="#" class="close">&times;</a>
+						   			<div id="divErrorText6"></div>
+						   		</div>
+						   	</div>
+					    </div>
+					</div>
+    			</div>
+    			<div id="menu6" class="tab-pane fade">
+    				<div class="row">
+					    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+					    	<h2>Reservation</h2>
+					    	<hr>
+					    	<input type="text" id="restId6" class="edit" />
+					    	<input type="text" id="reserId6" class="edit" />
+					    	<div class="row">
+								<div class="col-xs-12 col-sm-4 col-md-4">
+									<div class="form-group has-feedback">
+				                        <span><strong>Restaurant:</strong></span>
+									</div>
+								</div>
+								
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="form-group has-feedback">
+										<!-- <input type="text" id="restaurant6" class="form-control input-sm" placeholder="Restaurant" maxlength="50" tabindex="1" readonly required /> -->
+										<span id="restaurant6"></span>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-xs-12 col-sm-4 col-md-4">
+									<div class="form-group has-feedback">
+				                        <span><strong>Date and time:</strong></span>
+									</div>
+								</div>
+								
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="form-group has-feedback">
+										<!-- <input type="date" id="date6" class="form-control input-sm" placeholder="Date and Time" tabindex="2" required /> -->
+										<span id="date6"></span>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-xs-12 col-sm-4 col-md-4">
+									<div class="form-group has-feedback">
+				                        <span><strong>Duration:</strong></span>
+									</div>
+								</div>
+								
+								<div class="col-xs-12 col-sm-3 col-md-3">
+									<div class="form-group has-feedback">
+										<!-- <input type="number" id="duration6" class="form-control input-sm" tabindex="3" required /> -->
+										<span id="duration6"></span>
+									</div>
+								</div>
+								
+								<div class="col-xs-12 col-sm-2 col-md-2">
+									<div class="form-group has-feedback">
+										<span><strong>hours</strong></span>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="table-bordered">          
+										<table class="table">
+											<thead>
+										    	<tr>
+										      		<th>Name</th>
+										      		<th></th>
+										    	</tr>
+										  	</thead>
+										  	<tbody id="table6">
+										  		<template id="friend6-template">
+										    		<tr>
+											    		<td>{{firstName}} {{lastName}}</td>
+											    		<td><button data-id="{{id}}" type="button" class="add6 btn btn-primary btn-sm" data-toggle="tooltip" data-placement="right" title="Add">Add</button></td>
+										    		</tr>
+										    	</template>
+										  	</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-xs-12 col-sm-3 col-md-3 col-sm-offset-3 col-md-offset-4">
+									<a href="#home" data-toggle="tab" id="back6" class="btn btn-primary btn-block btn-sm" tabindex="4">&#60;&#60; Back</a>
+								</div>
+								<div class="col-xs-12 col-sm-3 col-md-3">
+									<a href="#menu7" data-toggle="tab" id="next6" class="btn btn-primary btn-block btn-sm" tabindex="5">Next &#62;&#62;</a>
+								</div>
+							</div>
+					    </div>
+					</div>
+				</div>
+				<div id="menu7" class="tab-pane fade">
+					<div class="row">
+					    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+					    	<h2>Reservation</h2>
+					    	<hr>
+					    	<input type="text" id="restId7" class="edit" />
+					    	<input type="text" id="reserId7" class="edit" />
+					    	<div class="row">
+								<div class="col-xs-12 col-sm-4 col-md-4">
+									<div class="form-group has-feedback">
+				                        <span><strong>Restaurant:</strong></span>
+									</div>
+								</div>
+								
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="form-group has-feedback">
+										<span id="restaurant7"></span>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-xs-12 col-sm-4 col-md-4">
+									<div class="form-group has-feedback">
+				                        <span><strong>Date and time:</strong></span>
+									</div>
+								</div>
+								
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="form-group has-feedback">
+										<span id="date7"></span>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-xs-12 col-sm-4 col-md-4">
+									<div class="form-group has-feedback">
+				                        <span><strong>Duration:</strong></span>
+									</div>
+								</div>
+								
+								<div class="col-xs-12 col-sm-3 col-md-3">
+									<div class="form-group has-feedback">
+										<span id="duration7"></span>
+									</div>
+								</div>
+								
+								<div class="col-xs-12 col-sm-2 col-md-2">
+									<div class="form-group has-feedback">
+										<span><strong>hours</strong></span>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-xs-12 col-sm-4 col-md-4">
+									<div class="form-group has-feedback">
+				                        <span><strong>Friends:</strong></span>
+									</div>
+								</div>
+								
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="form-group has-feedback">
+										<span id="friends7"></span>
+									</div>
+								</div>
+							</div>
+							<hr>
+							<div class="row">
+								<div class="col-xs-12 col-sm-3 col-md-3 col-sm-offset-3 col-md-offset-4">
+									<a href="#home" data-toggle="tab" id="cancel7" class="btn btn-primary btn-block btn-sm" tabindex="4" data-toggle="tooltip" data-placement="right" title="Cancel Reservation">Cancel</a>
+								</div>
+								<div class="col-xs-12 col-sm-3 col-md-3">
+									<a href="#home" data-toggle="tab" id="confirm7" class="btn btn-primary btn-block btn-sm" tabindex="5" data-toggle="tooltip" data-placement="right" title="Confirm Resrvation">Confirm</a>
+								</div>
+							</div>
+					    </div>
+					</div>
+				</div>
 				<div id="menu1" class="tab-pane fade">
       				<h2>Add Friend</h2>
       				<table id="example" class="display" cellspacing="0" width="100%">
