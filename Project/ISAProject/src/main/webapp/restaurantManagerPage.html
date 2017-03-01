@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="RestaurantManager" >
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="library/jquery-3.1.0.min.js"></script>
+
 <link rel="stylesheet" type="text/css" href="library/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="css/guest_styles.css" />
+
+<script src="library/angular.min.js"></script>
+<script src="library/jquery-3.1.0.min.js"></script>
 <script src="library/js/bootstrap.min.js"></script>
 <script src="library/mustache.js"></script>
 <script type="text/javascript" src="validations/restaurantManagerValidations.js"></script>
+
 <title>RestaurantManager Page</title>
 </head>
 <body>
@@ -59,8 +63,27 @@
 		<div class="col-sm-10">
 			<div class="tab-content">
     			<div id="home" class="tab-pane fade in active">
-      				<h2>This is restaurant managers main page</h2>
-      				
+      				<table class="table" ng-controller="restaurantListingController as restaurantlsCtrl">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>Name</th>
+								<th>TypeDescription</th>
+								<!--<th class="col_remove_edit" ></th>-->
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="restaurant in restaurantlsCtrl.restaurants">
+								<td>{{restaurant.id}}</td>
+								<td>{{restaurant.name}}</td>
+								<td>{{restaurant.typeDescription}}</td>
+								<!--<td>
+									<button ng-click="userslsCtrl.updateUser(user.id)" class="btn">E</button>
+									<button ng-click="userslsCtrl.removeUser(user.id)" class="btn">x</button>
+								</td>-->
+							</tr>
+						</tbody>
+					</table>
     			</div>
 				<div id="menu1" class="tab-pane fade">
       				<h2>Add Drink</h2>

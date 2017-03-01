@@ -217,4 +217,27 @@ $(function() {
 			}
 		});
 	});
+	
 });
+
+(function(){
+	var app = angular.module("RestaurantManager", []);
+	
+	app.controller("restaurantListingController", ["$http",function($http){
+		Ctrl = this;
+		Ctrl.restaurants = [];
+		
+		$http({
+			method: "GET",
+			url: "/api/restaurants",
+			headers:{ "Content-Type": "application/json" }
+		}).then(
+			function successCallback(response) {
+				Ctrl.restaurants = response.data;
+			}, function errorCallback(response) {
+				alert(response.status);
+			}
+		);
+		
+	}]);
+})();

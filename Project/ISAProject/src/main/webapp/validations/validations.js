@@ -216,8 +216,7 @@ $(function() {
 			password: password,
 			firstName: firstName,
 			lastName: lastName,
-			email: email,
-			boss: true
+			email: email
 		};
 		//sysmanagers
 		$.ajax({

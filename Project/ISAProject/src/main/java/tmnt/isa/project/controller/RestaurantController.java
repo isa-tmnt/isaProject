@@ -18,7 +18,6 @@ import tmnt.isa.project.services.RestaurantServices;
 @RestController
 @RequestMapping(
 		value="/api/restaurants",
-		consumes = MediaType.APPLICATION_JSON_VALUE,
 		produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantController {
 	
@@ -31,6 +30,7 @@ public class RestaurantController {
 	public ArrayList<Restaurant> getRestaurants() {
 		logger.info("> getRestaurants");
 		ArrayList<Restaurant> restaurants = restaurantServices.getAllRestaurants();
+		if(restaurants == null) restaurants = new ArrayList<Restaurant>();
 		logger.info("< getRestaurants");
 		return restaurants;
 	}
