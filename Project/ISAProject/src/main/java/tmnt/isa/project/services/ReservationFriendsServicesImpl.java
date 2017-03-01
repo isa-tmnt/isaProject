@@ -5,14 +5,19 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tmnt.isa.project.model.Reservation;
 import tmnt.isa.project.model.ReservationFriends;
 import tmnt.isa.project.repository.ReservationFriendsRepository;
+import tmnt.isa.project.repository.ReservationRepository;
 
 @Service
 public class ReservationFriendsServicesImpl implements ReservationFriendsServices {
 	
 	@Autowired
 	private ReservationFriendsRepository reservationFriendsRepository;
+	
+	@Autowired
+	private ReservationRepository reservationRepository;
 
 	@Override
 	public ArrayList<ReservationFriends> getAllReservationFriends() {
@@ -36,7 +41,19 @@ public class ReservationFriendsServicesImpl implements ReservationFriendsService
 
 	@Override
 	public ReservationFriends addReservationFriends(ReservationFriends reservationFriends) {
-		return reservationFriendsRepository.save(reservationFriends);
+		int i = 0;
+		for(ReservationFriends resFriends : reservationFriendsRepository.findAll()) {
+			if(reservationFriends.getReservationId() == resFriends.getReservationId() && 
+					reservationFriends.getFriendId() == resFriends.getFriendId()) {
+				i++;
+			}
+		}
+		
+		if(i == 0) {
+			return reservationFriendsRepository.save(reservationFriends);
+		} else {
+			return null;
+		}
 	}
 
 	@Override
@@ -51,9 +68,14 @@ public class ReservationFriendsServicesImpl implements ReservationFriendsService
 
 	@Override
 	public void deleteReservationFriends(Long id) {
-		ReservationFriends reservationF = reservationFriendsRepository.findOne(id);
-		if(reservationF != null) {
-			reservationFriendsRepository.delete(id);
+		Reservation reservation = reservationRepository.findOne(id);
+		ArrayList<ReservationFriends> reservationFriends = new ArrayList<ReservationFriends>();
+		for(ReservationFriends resFriends : reservationFriendsRepository.findAll()) {
+			if(resFriends.getReservationId() == reservation.getId()) {
+				reservationFriends.add(resFriends);
+			}
 		}
+		
+		reservationFriendsRepository.delete(reservationFriends);
 	}
 }

@@ -19,14 +19,12 @@ $(function() {
 			dataType: "json",
 			success: function(staff) {
 				$("#profile").append(span + " " + username);
-				$("#dateOfBirth").text(staff.dateOfBirth);
 				$("#txtId").text(staff.id);
 				$("#txtFirstName").text(staff.firstName);
 				$("#txtLastName").text(staff.lastName);
 				$("#txtEmail").text(staff.email);
 				$("#txtUsername").text(staff.username);
 				$("#txtPassword").text(staff.password);
-				$("#txtWork").text(staff.work);
 			}, error: function(jqXHR) {
 				
 			}
@@ -57,7 +55,6 @@ $(function() {
 			$("#txtEmail").removeClass("edit");
 			$("#txtUsername").removeClass("edit");
 			$("#txtPassword").removeClass("edit");
-			$("#txtWork").removeClass("edit")
 			$("#id0").addClass("edit");
 			$("#firstname0").addClass("edit");
 			$("#lastname0").addClass("edit");
@@ -76,7 +73,6 @@ $(function() {
 			$("#txtEmail").addClass("edit");
 			$("#txtUsername").addClass("edit");
 			$("#txtPassword").addClass("edit");
-			$("#txtWork").removeClass("edit")
 			$("#id0").removeClass("edit");
 			$("#firstname0").removeClass("edit");
 			$("#lastname0").removeClass("edit");
@@ -93,7 +89,6 @@ $(function() {
 			$("#username0").val($("#txtUsername").text());
 			$("#email0").val($("#txtEmail").text());
 			$("#password0").val($("#txtPassword").text());
-			$("#txtWork").val($("edit").text());
 		}
 	}
 	
@@ -104,7 +99,6 @@ $(function() {
 	//Edit Staff
 	$("#saveModal").on("click", function() {
 		var id = $("#id0").val();
-		var dateOfBirth = $("#")
 		var firstName = $("#firstname0").val();
 		var lastName = $("#lastname0").val();
 		var username = $("#username0").val();
@@ -196,14 +190,11 @@ $(function() {
 		$("#pwerror0").hide();
 		
 		var staff = {
-			dateOfBirth: dateOfBirth,
 			username: username,
 			password: password,
 			firstName: firstName,
 			lastName: lastName,
-			role: role,
-			email: email,
-			work: work
+			email: email
 		};
 		
 		$.ajax({

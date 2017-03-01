@@ -41,7 +41,7 @@ public class Reservation {
 	private Long guestId;
 	
 	@Column(name="RESERVATION_DATE", nullable=false)
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date reservationDate;
 	
 	@Column(name="RESERVATIONS_DURATION", nullable=false)

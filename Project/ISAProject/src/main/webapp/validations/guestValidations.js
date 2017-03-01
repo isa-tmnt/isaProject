@@ -265,17 +265,33 @@ $(document).ready(function() {
 		});
 	});
 	
+	$("#linkClose6").on("click", function() {
+		$("#divError6").hide("fade");
+	});
+	
 	//Add Reservation
 	$("#next5").on("click", function() {
 		var restaurantId = $("#restId5").val();
 		var guestId = $("#txtId").text();
 		var date = $("#date5").val();
 		var duration = document.getElementById("duration5").value;
+		//var dateTime = date.split("T");
+		//alert(dateTime[0] + " " + dateTime[1] + ":00");
+		
+		if(date === "") {
+			$("#divErrorText6").text("Date and Time field can't be empty!");
+			$("#divError6").show("fade");
+			return false;
+		} else if(duration == 0) {
+			$("#divErrorText6").text("Duration field can't be empty!");
+			$("#divError6").show("fade");
+			return false;
+		}
 		
 		var reservation = {
 			restaurantId: restaurantId,
 			guestId: guestId,
-			reservationDate: date,
+			reservationDate: date + ":00",
 			duration: duration
 		};
 		
@@ -293,7 +309,7 @@ $(document).ready(function() {
 				$("#reserId6").val(reservation.id);
 				$("#restId6").val(reservation.restaurantId);
 				$("#restaurant6").text($("#restaurant5").val());
-				$("#date6").text(new Date(reservation.reservationDate).toDateString());
+				$("#date6").text(new Date(reservation.reservationDate).toUTCString());
 				$("#duration6").text(reservation.duration);
 				alert("Reservation made!");
 			}
@@ -337,9 +353,126 @@ $(document).ready(function() {
 		});
 	});
 	
+	// /api/reservationfriends
+	//Add friends to reservation 
+	$("#table6").delegate(".add6", "click", function() {
+		var reservationId = $("#reserId6").val();
+		var friendId = $(this).attr("data-id");
+		
+		var reservationFriends = {
+			reservationId: reservationId,
+			friendId: friendId
+		};
+		
+		$.ajax({
+			headers: { 
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json',
+		        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth') 
+		    },
+			type: "POST",
+			url: "/api/reservationfriends",
+			data: JSON.stringify(reservationFriends),
+			dataType: "json",
+			success: function(reservationFriends) {
+				alert("Add friend to reservation!");
+			},
+			error: function(jqXHR) {
+				alert("This user is already added in this reservation!");
+			}
+		});
+	});
+	
 	//Add friends to restaurant reservations
 	$("#next6").on("click", function() {
+		$("#reserId7").val($("#reserId6").val());
+		$("#restId7").val($("#restId6").val());
+		$("#restaurant7").text($("#restaurant6").text());
+		$("#date7").text($("#date6").text());
+		$("#duration7").text($("#duration6").text());
 		
+		var arrayOfFriends = [];
+		
+		$.ajax({
+			headers: { 
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json',
+		        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth') 
+		    },
+			type: "GET",
+			url: "/api/reservationfriends",
+			dataType: "json",
+			success: function(reservationFriends) {
+				$.each(reservationFriends, function(i, resFriend) {
+					if(resFriend.reservationId == $("#reserId7").val()) {
+						$.ajax({
+							headers: { 
+						        'Accept': 'application/json',
+						        'Content-Type': 'application/json',
+						        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth') 
+						    },
+							type: "GET",
+							url: "/api/guests",
+							dataType: "json",
+							success: function(guests) {
+								$.each(guests, function(j, guest) {
+									if(resFriend.friendId == guest.id) {
+										arrayOfFriends.push(guest.firstName + " " + guest.lastName);
+									}
+								});
+								$("#friends7").text(arrayOfFriends);
+							}
+						});
+					}
+				});
+			}
+		});
+	});
+	
+	function cancelReservation(s) {
+		if(s === "menu6") {
+			var reservationId = $("#reserId6").val();
+		} else if(s === "menu7") {
+			var reservationId = $("#reserId7").val();
+		}
+		
+		$.ajax({
+			headers: { 
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json',
+		        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth') 
+		    },
+			type: "DELETE",
+			url: "/api/reservationfriends/" + reservationId,
+			dataType: "json",
+			success: function() {},
+			error: function() {
+				$.ajax({
+					headers: { 
+				        'Accept': 'application/json',
+				        'Content-Type': 'application/json',
+				        'Authorization': 'Basic ' + sessionStorage.getItem('basicAuth') 
+				    },
+					type: "DELETE",
+					url: "/api/reservations/" + reservationId,
+					dataType: "json",
+					success: function() {},
+					error: function() {
+						window.location.href = "mainGuestPage.html";
+					}
+				});
+			}
+		});
+	}
+	
+	//Cancel Reservation in menu6
+	$("#back6").on("click", function() {
+		cancelReservation("menu6");
+	});
+	
+	//Cancel Reservation in menu7
+	$("#cancel7").on("click", function() {
+		cancelReservation("menu7");
 	});
 	
 	//List of guests
